@@ -1,4 +1,4 @@
-public class EquipmentInventoryCalloutHelper {
+public class WarehouseCalloutServiceHelper {
     public static List<Product2> prepareData(HttpResponse response) {
         // Deserializes the JSON string into collections of primitive data types.
         List<Object> results = (List<Object>) JSON.deserializeUntyped(response.getBody());

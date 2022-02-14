@@ -41,12 +41,13 @@ public class TestDataGenerator {
     public static void makeTriggerSingleData() {
         Product2 eq = new Product2(
             Name = 'Test Part',
-            Maintenance_Cycle__c = 15
+            Maintenance_Cycle__c = 15,
+            Replacement_Part__c = true
         );
         insert eq;
 
         Vehicle__c v = new Vehicle__c(
-            Name = 'Test RV'
+            Name = 'TestRV'
         );
         insert v;
         
@@ -54,8 +55,7 @@ public class TestDataGenerator {
             Type = 'Repair',
             Subject = 'Test Subject',
             Status = 'New',
-            Vehicle__c = v.Id,
-            ProductId = eq.Id
+            Vehicle__c = v.Id
         );
         insert c;
 
@@ -70,12 +70,13 @@ public class TestDataGenerator {
         // creates multiple MR records using same related Equipment and Vehicle records
         Product2 eq = new Product2(
             Name = 'Test Part',
-            Maintenance_Cycle__c = 15
+            Maintenance_Cycle__c = 15,
+            Replacement_Part__c = true
         );
         insert eq;
 
         Vehicle__c v = new Vehicle__c(
-            Name = 'Test RV'
+            Name = 'TestRV'
         );
         insert v;
 
@@ -86,18 +87,19 @@ public class TestDataGenerator {
                 Type = 'Repair',
                 Subject = 'TestSubject' + String.valueOf(i),
                 Status = 'New',
-                Vehicle__c = v.Id,
-                ProductId = eq.Id
+                Vehicle__c = v.Id
             );
             cases.add(c);
+        }
+        insert cases;
 
+        for (Case c : cases) {
             Equipment_Maintenance_Item__c emi = new Equipment_Maintenance_Item__c(
                 Equipment__c = eq.Id,
                 Maintenance_Request__c = c.Id
             );
             emis.add(emi);
         }
-        insert cases;
         insert emis;
     }
 }
